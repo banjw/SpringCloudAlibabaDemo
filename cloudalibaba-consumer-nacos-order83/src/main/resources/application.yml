@@ -8,8 +8,37 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    sentinel:
+          transport:
+            dashboard: localhost:8080 #配置Sentinel dashboard地址
+            port: 8719
+          datasource:
+            ds1:
+              nacos:
+                server-addr: localhost:8848
+                dataId: nacos-order-consumer
+                groupId: DEFAULT_GROUP
+                data-type: json
+                rule-type: flow
+#nacos配置json
+#[
+#    {
+#        "resource": "testSentinel",
+#        "limitApp": "default",
+#        "grade": 1,
+#        "count": 1,
+#        "strategy": 0,
+#        "controlBehavior": 0,
+#        "clusterMode": false
+#    }
+#]
+
 
 
 #消费者将要去访问的微服务名称(注册成功进nacos的微服务提供者)
 service-url:
  nacos-user-service: http://nacos-payment-provider
+
+feign:
+  sentinel:
+    enabled: true # 激活Sentinel对Feign的支持
