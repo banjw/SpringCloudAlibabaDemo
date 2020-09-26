@@ -6,6 +6,7 @@ import com.learn.demo.order.service.AccountService;
 import com.learn.demo.order.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.learn.demo.order.service.StorageService;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private StorageService storageService;
 
     @Override
+    @GlobalTransactional(name = "test_seata_globalT_transactional", rollbackFor = Exception.class)
     public void createOrder(Order order) {
         log.info("==================创建订单start");
         boolean save = this.save(order);
