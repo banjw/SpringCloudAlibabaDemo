@@ -36,7 +36,7 @@ public class SeataStorageMain9102Tests {
         storage.setTotal(10);
         storage.setUsed(1);
         storage.setResidue(9);
-        storage.setDelete(0);
+        storage.setDeleted(0);
         storageService.save(storage);
         log.info("添加成功：{}", storage);
     }
@@ -69,7 +69,7 @@ public class SeataStorageMain9102Tests {
 
         Storage targetStorage= new Storage();
         targetStorage.setId(3);
-        targetStorage.setDelete(0);
+        targetStorage.setDeleted(0);
 
 
         UpdateWrapper<Storage> updateWrapper = new UpdateWrapper<>();

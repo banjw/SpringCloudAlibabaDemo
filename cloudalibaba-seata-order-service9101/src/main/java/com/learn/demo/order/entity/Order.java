@@ -68,6 +68,6 @@ public class Order implements Serializable {
      * 是否删除，1是0否
      */
     @TableField(value = "is_delete")
-    private Integer delete;
+    private Integer deleted;
 
 }

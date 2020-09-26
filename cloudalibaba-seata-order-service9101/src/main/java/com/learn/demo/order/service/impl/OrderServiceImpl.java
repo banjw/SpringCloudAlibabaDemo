@@ -1,6 +1,5 @@
 package com.learn.demo.order.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.learn.demo.order.entity.Order;
 import com.learn.demo.order.mapper.OrderMapper;
 import com.learn.demo.order.service.AccountService;
@@ -31,10 +30,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private StorageService storageService;
 
     @Override
-    public void CreateOrder(Order order) {
+    public void createOrder(Order order) {
         log.info("==================创建订单start");
         boolean save = this.save(order);
-        log.info("==================创建订单end");
+
 
         log.info("==================订单微服务调用库存微服务做扣减库存操作start");
         storageService.decrease(order.getProductId(), order.getCount());
@@ -45,11 +44,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         log.info("==================订单微服务调用账户微服务做扣减余额操作end");
 
         log.info("==================修改订单状态start");
-        Order updateOrder = new Order();
-        updateOrder.setStatus(1);
-        UpdateWrapper<Order> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.setEntity(order);
-        boolean update = this.update(updateOrder, updateWrapper);
+        order.setStatus(1);
+        boolean b = this.saveOrUpdate(order);
         log.info("==================修改订单状态end");
+
+
+        log.info("==================创建订单end");
     }
 }

@@ -46,7 +46,7 @@ class SeataOrderMain9101Tests {
         order.setCount(1);
         order.setMoney(new BigDecimal("100"));
         order.setStatus(0);
-        order.setDelete(0);
+        order.setDeleted(0);
         orderMapper.insert(order);
         log.info("创建成功：{}", order);
     }

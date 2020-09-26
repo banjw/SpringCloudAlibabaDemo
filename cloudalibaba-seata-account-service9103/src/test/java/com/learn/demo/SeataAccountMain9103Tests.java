@@ -35,7 +35,7 @@ public class SeataAccountMain9103Tests {
         account.setTotal(new BigDecimal("100"));
         account.setUsed(new BigDecimal("1"));
         account.setResidue(new BigDecimal("99"));
-        account.setDelete(0);
+        account.setDeleted(0);
         boolean save = accountService.save(account);
         log.info("保存结果：{}", save);
     }
