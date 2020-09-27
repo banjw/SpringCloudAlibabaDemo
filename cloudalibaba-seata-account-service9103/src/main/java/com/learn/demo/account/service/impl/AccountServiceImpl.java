@@ -1,15 +1,15 @@
 package com.learn.demo.account.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.learn.demo.account.dao.AccountMapper;
 import com.learn.demo.account.entity.Account;
 import com.learn.demo.account.entity.CommonResult;
-import com.learn.demo.account.mapper.AccountMapper;
 import com.learn.demo.account.service.AccountService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -21,16 +21,16 @@ import java.math.BigDecimal;
  */
 @Service
 @Slf4j
-public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> implements AccountService {
+public class AccountServiceImpl implements AccountService {
+
+    @Resource
+    private AccountMapper accountMapper;
+
 
     @Override
     public CommonResult decrease(Integer userId, BigDecimal money) {
 
-        Account account = new Account();
-        account.setUserId(userId);
-        QueryWrapper<Account> queryWrapper = new QueryWrapper<>();
-        queryWrapper.setEntity(account);
-        account = this.getOne(queryWrapper);
+        Account account = accountMapper.queryAccountByUserId(userId);
 
         BigDecimal residue = account.getResidue();
         if(money.compareTo(residue) > 0){
@@ -44,13 +44,13 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         BigDecimal used = account.getUsed();
         used = used.add(money);
         account.setUsed(used);
-
-        boolean flag = this.saveOrUpdate(account);
-        if(flag){
-            return new CommonResult(1, "扣减成功");
-        }else {
-            return new CommonResult(-1, "扣减失败");
-
+        //模拟超时，全局事务回滚
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        accountMapper.updateAccount(account.getId(), used, residue);
+        return new CommonResult(1, "扣减成功");
     }
 }

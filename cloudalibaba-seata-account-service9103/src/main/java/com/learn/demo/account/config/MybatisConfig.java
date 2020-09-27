@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/09/26
  */
 @Configuration
-@MapperScan("com.learn.demo.account.mapper")
-public class MybatisPlusConfig {
+@MapperScan("com.learn.demo.account.dao")
+public class MybatisConfig {
 }

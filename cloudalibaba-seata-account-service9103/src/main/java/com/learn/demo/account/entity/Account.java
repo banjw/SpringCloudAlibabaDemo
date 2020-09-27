@@ -2,10 +2,9 @@ package com.learn.demo.account.entity;
 
 import java.math.BigDecimal;
 
-import com.baomidou.mybatisplus.annotation.*;
-
 import java.util.Date;
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,12 +18,10 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName(value = "t_account")
 public class Account implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -50,20 +47,15 @@ public class Account implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     /**
      * 是否删除，1是0否
      */
-    @TableField(value = "is_delete")
     private Integer deleted;
-
-
 }
