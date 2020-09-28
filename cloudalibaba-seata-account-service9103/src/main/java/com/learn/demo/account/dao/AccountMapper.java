@@ -2,7 +2,7 @@ package com.learn.demo.account.dao;
 
 import com.learn.demo.account.entity.Account;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @Mapper
 public interface AccountMapper{
 
-    Account queryAccountByUserId(@RequestParam("userId") Integer userId);
+    Account queryAccountByUserId(@Param("userId") Integer userId);
 
-    void updateAccount(@RequestParam("id") Integer id, @RequestParam("used") BigDecimal used, @RequestParam("residue") BigDecimal residue);
+    void updateAccount(@Param("id") Integer id, @Param("used") BigDecimal used, @Param("residue") BigDecimal residue);
 }

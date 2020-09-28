@@ -1,8 +1,6 @@
 package com.learn.demo.storage.service;
 
 import com.learn.demo.storage.entity.CommonResult;
-import com.learn.demo.storage.entity.Storage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author banjiawei
  * @since 2020-09-26
  */
-public interface StorageService extends IService<Storage> {
+public interface StorageService {
 
     CommonResult decrease(@RequestParam("productId") Integer productId, @RequestParam("count") Integer count);
 }

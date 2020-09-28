@@ -1,10 +1,9 @@
 package com.learn.demo.order.service.impl;
 
 import com.learn.demo.order.entity.Order;
-import com.learn.demo.order.mapper.OrderMapper;
+import com.learn.demo.order.dao.OrderMapper;
 import com.learn.demo.order.service.AccountService;
 import com.learn.demo.order.service.OrderService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.learn.demo.order.service.StorageService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ import javax.annotation.Resource;
  */
 @Service
 @Slf4j
-public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
+public class OrderServiceImpl implements OrderService {
 
     @Resource
     private AccountService accountService;
@@ -30,12 +29,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Resource
     private StorageService storageService;
 
+    @Resource
+    private OrderMapper orderMapper;
+
     @Override
     @GlobalTransactional(name = "test_seata_globalT_transactional", rollbackFor = Exception.class)
     public void createOrder(Order order) {
         log.info("==================创建订单start");
-        boolean save = this.save(order);
-
+        orderMapper.insertOrder(order);
 
         log.info("==================订单微服务调用库存微服务做扣减库存操作start");
         storageService.decrease(order.getProductId(), order.getCount());
@@ -46,10 +47,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         log.info("==================订单微服务调用账户微服务做扣减余额操作end");
 
         log.info("==================修改订单状态start");
-        order.setStatus(1);
-        boolean b = this.saveOrUpdate(order);
+        orderMapper.updateOrder(order.getId());
         log.info("==================修改订单状态end");
-
 
         log.info("==================创建订单end");
     }

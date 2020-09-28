@@ -1,7 +1,6 @@
 package com.learn.demo.order.service;
 
 import com.learn.demo.order.entity.Order;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -11,7 +10,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author banjiawei
  * @since 2020-09-26
  */
-public interface OrderService extends IService<Order> {
+public interface OrderService {
 
     void createOrder(Order order);
 }

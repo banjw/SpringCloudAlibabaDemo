@@ -45,11 +45,11 @@ public class AccountServiceImpl implements AccountService {
         used = used.add(money);
         account.setUsed(used);
         //模拟超时，全局事务回滚
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(5);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         accountMapper.updateAccount(account.getId(), used, residue);
         return new CommonResult(1, "扣减成功");
     }

@@ -1,4 +1,4 @@
-package com.learn.demo.storage.config;
+package com.learn.demo.order.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/09/26
  */
 @Configuration
-@MapperScan("com.learn.demo.storage.mapper")
-public class MybatisPlusConfig {
+@MapperScan("com.learn.demo.order.dao")
+public class MybatisConfig {
 }

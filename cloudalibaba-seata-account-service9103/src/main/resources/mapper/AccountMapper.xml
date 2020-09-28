@@ -36,6 +36,7 @@
         `update_time` = NOW()
         WHERE
             `id` = #{id, jdbcType=INTEGER}
+        AND `is_delete` = 0;
     </update>
 
 </mapper>
